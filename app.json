@@ -1,0 +1,44 @@
+{
+  "expo": {
+    "name": "Tenet",
+    "slug": "Tenet",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "scheme": "jecta",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "image": "./assets/images/logosmall.png",
+      "resizeMode": "fill",
+      "backgroundColor": "#180030"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "package": "com.kilo.projecta"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/logosmall.png",
+        "backgroundColor": "#180030"
+      },
+      "package": "com.kilo.projecta"
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "static",
+      "favicon": "./assets/images/logosmall.png"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow Tenet to access your camera"
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}
