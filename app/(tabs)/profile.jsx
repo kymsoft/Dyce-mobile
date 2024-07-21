@@ -8,8 +8,7 @@ import { router } from "expo-router";
 
 const Profile = () => {
   const [users, setUsers] = useState([]);
-  const user = FIREBASE_AUTH.currentUser.uid;
-  const userEmail = FIREBASE_AUTH.currentUser.email;
+  const userEmail = FIREBASE_AUTH.currentUser?.email;
   useEffect(() => {
     const fetchUser = () => {
       const userRef = collection(FIRESTORE_DB, "users");
@@ -49,11 +48,11 @@ const Profile = () => {
     >
       <ScrollView showsVerticalScrollIndicator={false}>
         <View className="m-3">
-        <Text className="text-white text-center text-2xl my-3">Your Profile</Text>
+        <Text className="text-white text-center text-2xl my-3" style={styles.font}>Your Profile</Text>
           <View className="w-full px-3 flex-row items-center" style={styles.header}>
             <TabBarIcon name="person-circle" className="text-6xl text-white"/>
             
-            <Text className="mt-2">
+            <Text className="mt-2" style={styles.font}>
               {users.map((userman, index) => {
                 if (userman.email === userEmail) {
                   return (
@@ -62,14 +61,14 @@ const Profile = () => {
                 Platform.OS === "ios"
                   ? "text-white text-xl ml-3"
                   : "text-white text-lg ml-3"
-              }>
+              } style={styles.font}>
                       {userman.username}
                     </Text>
                     <Text className={
                 Platform.OS === "ios"
                   ? "text-gray-400 text-sm ml-3"
                   : "text-gray-400 ml-3"
-              }>
+              } style={styles.font}>
                       {userman.email}
                     </Text>
                     </View>
@@ -90,4 +89,8 @@ const Profile = () => {
 
 export default Profile;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  font: {
+    fontFamily: "Nunito",
+  },
+});

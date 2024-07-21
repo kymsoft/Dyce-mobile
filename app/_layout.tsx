@@ -12,13 +12,13 @@ import { useColorScheme } from "@/hooks/useColorScheme";
 import { onAuthStateChanged, User } from "firebase/auth";
 import { FIREBASE_AUTH } from "@/FirebaseConfig";
 
-// Prevent the splash screen from auto-hiding before asset loading is complete.
+
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
   const [loaded] = useFonts({
-    KumbhSans: require("../assets/fonts/KumbhSans.ttf"),
+    Nunito: require("../assets/fonts/Nunito.ttf"),
   });
   // const [user, setUser] = useState<User | null>(null);
 
@@ -44,7 +44,7 @@ export default function RootLayout() {
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
       
         <Stack>
-          <Stack.Screen name="index" options={{ headerShown: false }} />
+          <Stack.Screen name="index" options={{ headerShown: false }}/>
           <Stack.Screen name="(auth)" options={{ headerShown: false }} />
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           <Stack.Screen

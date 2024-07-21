@@ -43,13 +43,13 @@ const Receipt = () => {
       <ScrollView showsVerticalScrollIndicator={false}>
         <View>
           <View className="fixed">
-            <View className="w-full px-3 flex-row" style={styles.header}>
+            <View className="w-full px-3 flex-row">
               <Image
                 source={images.logoBlank}
                 className="w-[50px] h-[50px] rounded-full mr-2 mt-4"
                 resizeMode="contain"
               />
-              <Text className="text-white text-lg mt-8 text-center">
+              <Text className="text-white text-lg mt-8 text-center" style={styles.font}>
                 Transaction History
               </Text>
               <TouchableOpacity className=" absolute right-6 mt-7">
@@ -72,7 +72,7 @@ const Receipt = () => {
 
           {transactionExist ? (
             <View className="mt-7">
-              <Text className="text-[#858585] mx-4">
+              <Text className="text-[#858585] mx-4" style={styles.font}>
               {currentDate.toDateString()}
               </Text>
               {transactions.map((item, index) => {
@@ -90,7 +90,7 @@ const Receipt = () => {
             </View>
           ) : (
             <View className="justify-center items-center px-4 min-h-[65vh] ">
-              <Text className="text-gray-300">No transactions yet</Text>
+              <Text className="text-gray-300" style={styles.font}>No transactions yet</Text>
             </View>
           )}
         </View>
@@ -101,4 +101,8 @@ const Receipt = () => {
 
 export default Receipt;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  font: {
+    fontFamily: "Nunito",
+  },
+});

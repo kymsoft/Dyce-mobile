@@ -1,4 +1,4 @@
-import { Text, View, TouchableOpacity, Platform} from 'react-native'
+import { Text, View, TouchableOpacity, Platform, ActivityIndicator, StyleSheet} from 'react-native'
 import React from 'react'
 
 export function CustomButton({title, handlePress, containerStyles, textStyles, isLoading}){
@@ -11,9 +11,16 @@ export function CustomButton({title, handlePress, containerStyles, textStyles, i
     ${containerStyles}`}
     disabled={isLoading}
     >
-      <Text className={`text-primary text-white text-sm ${textStyles}`}>{title}</Text>
+      {isLoading ? <ActivityIndicator size="small" color="#FFF" /> : <Text className={`text-primary text-white text-sm ${textStyles}`} style={styles.font}>{title}</Text>}
+      
     </TouchableOpacity>
   )
 }
+
+const styles = StyleSheet.create({
+  font: {
+    fontFamily: "Nunito",
+  },
+});
 
 

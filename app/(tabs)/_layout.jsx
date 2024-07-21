@@ -1,7 +1,5 @@
 import { Tabs } from 'expo-router';
 import { TabBarIcon } from '@/components/navigation/TabBarIcon';
-import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
 import { BottomSheetModalProvider} from "@gorhom/bottom-sheet"
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import { Platform } from 'react-native';
@@ -16,14 +14,14 @@ const TabsLayout = () => {
       <Tabs 
         screenOptions={{
             tabBarShowLabel: false,
-            tabBarActiveTintColor: '#9E00FF',
+            tabBarActiveTintColor: '#f5f5f5',
             tabBarInactiveTintColor: '#CDCDE0',
             tabBarStyle: {
                 backgroundColor: '#161622',
                 borderTopWidth: 1,
                 borderTopColor: '#232533',
                 height: Platform.OS === 'ios' ? 84 : 54
-            }
+            } 
         }}
       >
         <Tabs.Screen

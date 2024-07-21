@@ -61,19 +61,12 @@ const CardForm = () => {
     const last4 = cardNumber.slice(-4);
     const savedCardNumber = `**** ${last4}`
     const defaultCardCode = generateDefaultCardCode();
-    // const currentDate = new Date();
-  
-    // const year = currentDate.getFullYear();
-    // const month = currentDate.getMonth() + 1; // Months are zero-indexed
-    // const day = currentDate.getDate();
-    
-    // // Combine into a formatted date string
-    // const formattedDate = `${year}-${month < 10 ? '0' + month : month}-${day < 10 ? '0' + day : day}`;
   
     const dateOfCreation = new Date;
-    const user = FIREBASE_AUTH.currentUser.uid;
+    const user = FIREBASE_AUTH.currentUser?.uid;
 
   const submit = async () => {
+    setIsSubmitting(true)
     const cardDetails = `${cardNumber}, ${expiryDate}, ${cvc}, ${cardType}`;
     const cardToken = await Crypto.digestStringAsync(
       Crypto.CryptoDigestAlgorithm.SHA256, String(cardDetails)
@@ -82,13 +75,13 @@ const CardForm = () => {
     const doc =await addDoc(collection(FIRESTORE_DB, 'cards'), {userid: user, token: cardToken, cardInfo: savedCardNumber, owner: cardHolder, type: cardType, code: defaultCardCode, createdAt: dateOfCreation})
       .then(() => {
         console.log("Card Added")
-        Alert("Card Added")
       })
       .catch((error) => {
         console.log("Error:", error)
       })
       .finally(() => {
-        router.push('/home')
+        router.push('/home');
+        Alert("Card Added")
       })
   };
 
@@ -98,7 +91,7 @@ const CardForm = () => {
         <View className="w-full justify-center px-4 my-6">
           <BackButton />
 
-          <Text className="text-xl text-white text-semibold mt-10 text-center">
+          <Text className="text-xl text-white text-semibold mt-10 text-center" style={styles.font}>
             Add Your Payment Method
           </Text>
 
@@ -114,7 +107,7 @@ const CardForm = () => {
         className="border-2 border-black-200 w-full h-12 px-4 bg-black-100
          rounded-2xl focus:border-[#3E006E] items-center flex-row my-2"
       >
-        <Text className="text-white text-base flex-1">Card Number</Text>
+        <Text className="text-white text-base flex-1" style={styles.font}>Card Number</Text>
           <TextInput
             className="flex-1 text-white text-base"
             value={cardNumber}
@@ -156,7 +149,7 @@ const CardForm = () => {
         className="border-2 border-black-200 w-full h-12 px-4 bg-black-100
          rounded-2xl focus:border-[#3E006E] items-center flex-row my-2"
       >
-        <Text className="text-white text-base flex-1">Expiry Date</Text>
+        <Text className="text-white text-base flex-1" style={styles.font}>Expiry Date</Text>
       <TextInput
       className="flex-1 text-white text-base"
         keyboardType="numeric"
@@ -176,7 +169,7 @@ const CardForm = () => {
         className="border-2 border-black-200 w-full h-12 px-4 bg-black-100
          rounded-2xl focus:border-[#3E006E] items-center flex-row my-2"
       >
-        <Text className="text-white text-base flex-1">CVC</Text>
+        <Text className="text-white text-base flex-1" style={styles.font}>CVC</Text>
           <TextInput
             className="flex-1 text-white text-base"
             value={cvc}
@@ -206,6 +199,7 @@ const CardForm = () => {
             handlePress={submit}
             containerStyles="mt-7"
             isLoading={isSubmitting}
+            textStyles={{fontFamily: "Nunito"}}
           />
         </View>
       </ScrollView>
@@ -215,5 +209,7 @@ const CardForm = () => {
 export default CardForm;
 
 const styles = StyleSheet.create({
-  card: {},
+  font: {
+    fontFamily: "Nunito",
+  },
 });

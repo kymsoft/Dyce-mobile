@@ -4,14 +4,14 @@ import { Link } from "expo-router";
 import CustomTransaction from "../CustomTransaction";
 
 const Transactions = () => {
-  const [transactionExist, setTransactionExist] = useState(false);
+  const [transactionExist, setTransactionExist] = useState(true);
   const [currentDate, setCurrentDate] = useState(new Date());
   const transactions= [
     { id: "1", amount: "$20", date: "2024-07-01", name: "Jidechi Ventures" },
     { id: "2", amount: "$50", date: "2024-07-02", name: "Ojo Ventures" },
-    { id: "3", amount: "$30", date: "2024-07-03", name: "Lyonnet Ventures" },
+    { id: "3", amount: "$30,000,000", date: "2024-07-03", name: "Lyonnet Ventures" },
     { id: "4", amount: "$40", date: "2024-07-04", name: "Loki Ventures" },
-    { id: "5", amount: "$100", date: "2024-07-05", name: "Kilo Ventures" },
+    { id: "5", amount: "N100,000,000", date: "2024-07-05", name: "Kilo Ventures" },
   ];
 
   useEffect(() => {
@@ -27,11 +27,11 @@ const Transactions = () => {
   return (
     <View className="mx-6">
       <View className="flex-row mt-6 mb-2">
-        <Text className={Platform.OS === 'ios' ? "text-white text-md" : "text-white text-sm"}>Recent Activity</Text>
+        <Text className={Platform.OS === 'ios' ? "text-white text-md" : "text-white text-sm"} style={styles.font}>Recent Activity</Text>
         <Link
           href="/(tabs)/receipt"
           className={Platform.OS === 'ios' ? "text-sm text-[#9E00FF] absolute right-0" : "text-[12px] text-[#EC9CF9] absolute right-0"}
-        >
+          style={styles.font}>
           View All
         </Link>
       </View>
@@ -39,7 +39,7 @@ const Transactions = () => {
         <View className="min-h-auto w-full bg-[#191A22] rounded-xl pb-2">
           {transactionExist ? (
             <View>
-              <Text className={Platform.OS === 'ios' ? "text-[#858585] m-3" : "text-[#858585] m-3 text-[10px]"}>
+              <Text className={Platform.OS === 'ios' ? "text-[#858585] m-3 text-md" : "text-[#858585] m-3 text-[10px]"} style={styles.font}>
                 {currentDate.toDateString()}
               </Text>
               {
@@ -54,7 +54,7 @@ const Transactions = () => {
             </View>
           ) : (
             <View className="justify-center items-center px-4 min-h-[40vh] ">
-              <Text className={Platform.OS === 'ios' ? "text-gray-300" : "text-gray-300 text-sm"}>No transactions yet</Text>
+              <Text className={Platform.OS === 'ios' ? "text-gray-300" : "text-gray-300 text-sm"} style={styles.font}>No transactions yet</Text>
             </View>
           )}
         </View>
@@ -65,4 +65,8 @@ const Transactions = () => {
 
 export default Transactions;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  font: {
+    fontFamily: "Nunito",
+  },
+});

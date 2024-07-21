@@ -1,4 +1,4 @@
-import { Text, View, TextInput, TouchableOpacity, Image } from 'react-native'
+import { Text, View, TextInput, TouchableOpacity, Image, StyleSheet } from 'react-native'
 import React, { useState } from 'react'
 import { images } from '@/constants'
 import { TabBarIcon } from './navigation/TabBarIcon'
@@ -21,7 +21,7 @@ export function FormField({title, value, placeholder, handleChangeText, otherSty
           placeholderTextColor='#7b7b8b'
           onChangeText={handleChangeText}
           secureTextEntry={title === 'Password' && !showPassword}
-          keyboardType={title === "Phone Number" && 'phone-pad'}
+          // keyboardType={title === "Phone Number" && 'phone-pad'}
         />
 
         {title === "Password" && (
@@ -34,5 +34,11 @@ export function FormField({title, value, placeholder, handleChangeText, otherSty
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  font: {
+    fontFamily: "Nunito",
+  },
+});
 
 

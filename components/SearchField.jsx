@@ -1,4 +1,4 @@
-import { Text, View, TextInput, TouchableOpacity, Image } from 'react-native'
+import { Text, View, TextInput, TouchableOpacity, Image, StyleSheet } from 'react-native'
 import React, { useState } from 'react'
 import { images } from '@/constants'
 import { TabBarIcon } from './navigation/TabBarIcon'
@@ -29,5 +29,11 @@ export function SearchField({title, value, placeholder, handleChangeText, otherS
       </View>
   )
 }
+
+const styles = StyleSheet.create({
+  font: {
+    fontFamily: "Nunito",
+  },
+});
 
 

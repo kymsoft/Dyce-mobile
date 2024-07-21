@@ -1,7 +1,6 @@
 import { Alert, Image, Platform, ScrollView, StyleSheet, Text, View } from 'react-native'
 import React, { useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { images } from '@/constants'
 import {FormField} from "@/components/FormField"
 import { CustomButton } from '@/components/CustomButton'
 import { Link, router } from 'expo-router'
@@ -26,7 +25,7 @@ const SignIn = () => {
       const response = await signInWithEmailAndPassword(auth, email, password)
       router.replace('/home')
     } catch (error) {
-      Alert.alert('Error', error.message)
+      Alert.alert('Error', "Wrong credentials. Try again")
     } finally{
       setIsSubmitting(false)
     }
@@ -37,7 +36,7 @@ const SignIn = () => {
       <ScrollView>
         <View className="w-full justify-center min-h-[85vh] px-4 my-6">
           
-          <Text className="text-xl text-white text-semibold mt-10 text-center">Login to your Tenet</Text>
+          <Text className="text-xl text-white text-semibold mt-10 text-center" style={styles.font}>Login to your Tenet</Text>
 
           <FormField 
             title="Email"
@@ -61,10 +60,10 @@ const SignIn = () => {
           />
 
           <View className="justify-center pt-5 flex-row gap-2">
-            <Text className={Platform.OS === 'ios' ? "text-gray-100 text-lg": "text-gray-100 text-md"}>
+            <Text className={Platform.OS === 'ios' ? "text-gray-100 text-lg": "text-gray-100 text-md"} style={styles.font}>
               Don't have an account?
             </Text>
-            <Link href="/sign-up" className={Platform.OS === 'ios' ? "text-lg text-[#9E00FF]": "text-md text-[#9E00FF]"}>Sign Up</Link>
+            <Link href="/sign-up" className={Platform.OS === 'ios' ? "text-lg text-[#9E00FF]": "text-md text-[#9E00FF]"} style={styles.font}>Sign Up</Link>
           </View>
         </View>
       </ScrollView>
@@ -72,4 +71,9 @@ const SignIn = () => {
   )
 }
 
-export default SignIn
+export default SignIn;
+const styles = StyleSheet.create({
+  font: {
+    fontFamily: "Nunito",
+  },
+});

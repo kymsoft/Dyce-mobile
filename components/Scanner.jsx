@@ -1,5 +1,5 @@
 import { Camera, CameraType } from "expo-camera/legacy";
-import  { useRef, useState }  from "react";
+import  { useEffect, useRef, useState }  from "react";
 import { Button, StyleSheet, Text, TouchableOpacity, View, TouchableWithoutFeedback, Image, Alert } from "react-native";
 import { images } from "@/constants";
 import { Link, router } from "expo-router";
@@ -11,7 +11,7 @@ import CardDetails from "@/app/card/[cardDetails]";
 import { addDoc, collection } from "firebase/firestore";
 import { FIREBASE_AUTH, FIRESTORE_DB } from "@/FirebaseConfig";
 
-const user = FIREBASE_AUTH.currentUser;
+const user = FIREBASE_AUTH.currentUser?.uid;
 const CustomBackdrop = ({ dismissModal }) => (
   <TouchableWithoutFeedback onPress={dismissModal}>
     <View style={styles.backdrop} />
@@ -22,6 +22,7 @@ export default function Scanner({setScannerIsOpen, bottomSheetModalRef, handlePr
   const [type, setType] = useState(CameraType.back);
   const [permission, requestPermission] = Camera.useCameraPermissions();
   const [scanned, setScanned] = useState(false);
+
 
   if (!permission) {
     // Camera permissions are still loading
@@ -55,24 +56,22 @@ export default function Scanner({setScannerIsOpen, bottomSheetModalRef, handlePr
   const snapPoints = ["90%"];
 
   
-  const handleClosePress = () => bottomSheetModalRef.current.close()
+  const handleClosePress = () => bottomSheetModalRef.current?.dismiss();
 
   const handleBarCodeScanned = async({ type, data }) => {
-    try {
+    if (!scanned) {
       setScanned(true);
       alert(`Bar code with type ${type} and data ${data} has been scanned!`);
-      const doc = await addDoc(collection(FIRESTORE_DB, 'transaction'), {cardEntry: data, receivingUser: user})
-        .then(()=>{
-          console.log("Transaction initiated with: ", doc)
-          bottomSheetModalRef.current.close()
-        }) 
-        .catch((error)=>{
-          Alert(error)
-        })
-    
       
-    } catch (error) {
-      alert( error);
+      try {
+        const doc = await addDoc(collection(FIRESTORE_DB, 'transaction'), { cardEntry: data, receivingUser: user });
+        console.log("Transaction initiated with: ", doc);
+        bottomSheetModalRef.current.close();
+      } catch (error) {
+        Alert.alert("Error", error.message);
+      } finally {
+        setScanned(false);
+      }
     }
     
   };

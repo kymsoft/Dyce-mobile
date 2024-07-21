@@ -35,6 +35,12 @@
         {
           "cameraPermission": "Allow Tenet to access your camera"
         }
+      ], 
+      [
+        "expo-local-authentication",
+        {
+          "faceIDPermission": "Allow Tenet to use Face ID"
+        }
       ]
     ],
     "experiments": {

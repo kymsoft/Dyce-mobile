@@ -16,11 +16,11 @@ const CustomTransaction = ({date, amount, name, index}) =>{
                 <TabBarIcon name='swap-horizontal' className="text-white "/>
             </View>
             <View className="block ml-2">
-            <Text className={Platform.OS === 'ios' ? "text-white text-lg my-1" : "text-white text-md my-1"}>{name}</Text>
-            <Text className="text-[#6D6D6D] text-[10px]" >{date}</Text>
+            <Text className={Platform.OS === 'ios' ? "text-white text-lg my-1" : "text-white text-md my-1"} style={styles.font}>{name}</Text>
+            <Text className="text-[#6D6D6D] text-[10px]" style={styles.font}>{date}</Text>
             </View>
             <View className="absolute right-2 my-2">
-                <Text className="text-white text-xl" >{amount}</Text>
+                <Text className="text-white text-lg" style={styles.font}>{amount}</Text>
             </View>
             </TouchableOpacity>
             
@@ -30,4 +30,8 @@ const CustomTransaction = ({date, amount, name, index}) =>{
 
 export default CustomTransaction;
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+    font: {
+      fontFamily: "Nunito",
+    },
+  });

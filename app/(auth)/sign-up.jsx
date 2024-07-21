@@ -1,7 +1,5 @@
 import {
   Alert,
-  Button,
-  Image,
   Platform,
   ScrollView,
   StyleSheet,
@@ -10,7 +8,6 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { images } from "@/constants";
 import { FormField } from "@/components/FormField";
 import { CustomButton } from "@/components/CustomButton";
 import { Link, router } from "expo-router";
@@ -31,17 +28,16 @@ const SignUp = () => {
     if (!username || !email || !password || !phonenumber) {
       Alert.alert("Error", "Please fill in all the fields");
     }
-    const dateOfCreation = new Date;
+   
 
     setIsSubmitting(true);
-
+    const dateOfCreation = new Date;
     try {
       const response = await createUserWithEmailAndPassword(
         auth,
         email,
         password
       );
-      console.log(response);
       router.replace("/home");
     } catch (error) {
       Alert.alert("Error", "something went wrong");
@@ -49,7 +45,7 @@ const SignUp = () => {
       setIsSubmitting(false);
     }
 
-    const doc =await addDoc(collection(FIRESTORE_DB, 'users'), {email: email, username: username, phonenumber: phonenumber})
+    const doc =await addDoc(collection(FIRESTORE_DB, 'users'), {email: email, username: username, phonenumber: phonenumber, createdAt: dateOfCreation})
       .then(() => {
         console.log("User Created")
       })
@@ -65,7 +61,7 @@ const SignUp = () => {
     <SafeAreaView className="bg-[#070A0F] h-full">
       <ScrollView>
         <View className="w-full justify-center min-h-[85vh] px-4 my-6">
-          <Text className="text-xl text-white text-semibold mt-10 text-center">
+          <Text className="text-xl text-white text-semibold mt-10 text-center" style={styles.font}>
             Sign Up to Tenet
           </Text>
 
@@ -110,6 +106,7 @@ const SignUp = () => {
                   ? "text-gray-100 text-lg"
                   : "text-gray-100 text-md"
               }
+              style={styles.font}
             >
               Already have an account?
             </Text>
@@ -120,6 +117,7 @@ const SignUp = () => {
                   ? "text-lg text-[#9E00FF]"
                   : "text-md text-[#9E00FF]"
               }
+              style={styles.font}
             >
               Sign In
             </Link>
@@ -131,3 +129,8 @@ const SignUp = () => {
 };
 
 export default SignUp;
+const styles = StyleSheet.create({
+  font: {
+    fontFamily: "Nunito",
+  },
+});

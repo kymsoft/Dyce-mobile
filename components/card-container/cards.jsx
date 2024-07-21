@@ -19,26 +19,22 @@ import { onSnapshot } from "firebase/firestore";
 import { FIREBASE_AUTH, FIRESTORE_DB } from "@/FirebaseConfig";
 import Transactions from "./transactions";
 
-const Cards = ({ isOpen, setIsOpen, cardData }) => {
-  const [isLoading, setIsLoading] = useState(true);
+const Cards = ({ isOpen, setIsOpen, cardData, isModalOpen, setModalIsOpen }) => {
   const user = FIREBASE_AUTH.currentUser.uid;
+  const [newData, setNewData] = useState([]);
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setIsLoading((prevKey) => prevKey + 1);
-    }, 5000);
+    setNewData([
+      { key: "spacer-left" },
+      ...cardData,
+      { key: "spacer-right" },
+    ]);
+  }, [cardData]);
 
-    return () => clearInterval(timer);
-  }, []);
 
-  const [newData] = useState([
-    { key: "spacer-left" },
-    ...cardData,
-    { key: "spacer-right" },
-  ]);
 
   const { width } = useWindowDimensions();
-  const SIZE = width * 0.8;
+  const SIZE = width * 0.9;
   const SPACER = (width - SIZE) / 2;
   const x = useSharedValue(0);
   const onScroll = useAnimatedScrollHandler({
@@ -51,31 +47,30 @@ const Cards = ({ isOpen, setIsOpen, cardData }) => {
     <Animated.ScrollView
       horizontal
       showsHorizontalScrollIndicator={false}
-      bounces={false}
+      bounces={true}
       scrollEventThrottle={16}
       snapToInterval={SIZE}
       decelerationRate="fast"
       onScroll={onScroll}
-      key={isLoading}
     >
       {newData.map((carddata, index) => {
-        const style = useAnimatedStyle(() => {
-          const scale = interpolate(
-            x.value,
-            [(index - 2) * SIZE, (index - 1) * SIZE, index * SIZE],
-            [0.8, 1, 0.8]
-          );
-          return {
-            transform: [{ scale }],
-          };
-        });
+        // const style = useAnimatedStyle(() => {
+        //   const scale = interpolate(
+        //     x.value,
+        //     [(index - 2) * SIZE, (index - 1) * SIZE, index * SIZE],
+        //     [0.8, 1, 0.8]
+        //   );
+        //   return {
+        //     transform: [{ scale }],
+        //   };
+        // });
         if(!carddata.userid){
           return <View style={{width: SPACER}} key={index}/>
         }
         if (carddata.userid === user) {
           return (
             <View style={{ width: SIZE }} key={index}>
-              <Animated.View className="px-2">
+              <Animated.View className="px-1">
                 <CustomCard
                   cardInfo={carddata.cardInfo}
                   cardType={carddata.type}
@@ -86,6 +81,8 @@ const Cards = ({ isOpen, setIsOpen, cardData }) => {
                   isOpen={isOpen}
                   setIsOpen={setIsOpen}
                   key={carddata.id}
+                  isModalOpen={isModalOpen}
+                  setModalIsOpen={setModalIsOpen}
                 />
               </Animated.View>
             </View>

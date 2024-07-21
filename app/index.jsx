@@ -18,7 +18,7 @@ export default function App() {
     }
   }
   return (
-    <SafeAreaView className="bg-primary h-full" style={styles.container}>
+    <SafeAreaView className="bg-primary h-full">
       <ScrollView contentContainerStyle={{ height: "100%" }}>
         <View className="w-full justify-center items-center min-h-[85vh] px-4">
           <Image
@@ -32,7 +32,7 @@ export default function App() {
             resizeMode="contain"
           /> */}
           <View className="relative">
-            <Text className={Platform.OS === 'ios' ? "text-3xl text-white text-semibold mt-10 text-center": "text-xl text-white text-bold mt-10 text-center"}>
+            <Text className={Platform.OS === 'ios' ? "text-3xl text-white text-semibold mt-10 text-center": "text-xl text-white text-bold mt-10 text-center"} style={styles.font}>
               Enjoy Seamless and Secure{"\n"}Payment with{" "}
               <Text className="text-[#9E00FF]">Tenet</Text>
             </Text>
@@ -52,7 +52,7 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-  container:{
-    fontFamily: "KumbhSans"
-  }
-})
+  font: {
+    fontFamily: "Nunito",
+  },
+});
